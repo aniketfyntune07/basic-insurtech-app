@@ -1,42 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>@yield('title', 'Insurtech App')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@yield('title', 'Insurtech Demo')</title>
+
+    {{-- Bootstrap 5 CSS (CDN) --}}
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    >
+
+    {{-- Optional: your own custom CSS --}}
+    @stack('styles')
 </head>
-<body>
-    <header>
-        <h1>Insurtech Demo</h1>
-        <nav>
-            <a href="{{ route('landing') }}">Home</a>
-            {{-- More links later --}}
+<body class="bg-light">
 
-            <nav>
-    <a href="{{ route('landing') }}">Home</a> |
-    <a href="{{ route('policies.index') }}">Policies</a>
-</nav>
+    {{-- Simple Navbar --}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">Insurtech</a>
 
-        </nav>
-        <hr>
-    </header>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <main>
-        <main>
-    @if (session('success'))
-        <div style="padding: 10px; background: #d1fae5; border: 1px solid #10b981; margin-bottom: 15px;">
-            {{ session('success') }}
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('policies.index') }}">Policies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('customers.index') }}">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/posts') }}">Posts (API)</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    @endif
+    </nav>
 
-    @yield('content')
-</main>
+    {{-- Main content --}}
+    <main class="container">
+        @yield('content')
+    </main>
 
-
-    <footer>
-        <hr>
-        <p>&copy; {{ date('Y') }} Insurtech Demo</p>
+    <footer class="py-4 mt-5 border-top">
+        <div class="container text-center text-muted small">
+            © {{ date('Y') }} Insurtech Demo
+        </div>
     </footer>
 
+    {{-- Bootstrap JS (needed for navbar & modal) --}}
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+    ></script>
+
+    {{-- Page-specific scripts --}}
     @yield('scripts')
 </body>
 </html>
